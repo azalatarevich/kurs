@@ -1,9 +1,9 @@
-package by.home.bubble;
+package by.home.shuttle;
 
-
-public class BubbleSort
+public class ShuttleSort
 {
     private static int[] list;
+
 
     public static void main(String[] args)
     {
@@ -12,7 +12,7 @@ public class BubbleSort
         print( );                            // вывод
 
         long start = System.currentTimeMillis();
-        sortArray();                         // sort list
+        shuttleSort( );                      // sort list
         long end = System.currentTimeMillis();
 
         System.out.println();
@@ -22,30 +22,29 @@ public class BubbleSort
         System.out.println("Taken time for sorting = " + (end - start));
     }
 
-
-    /**
-     * Сортировка пузырьком выполняется посредством сравнения
-     * текущего элемента с предыдущим и если условие "больше" выполняется,
-     * то они меняются местами
-     * алгоритмическую сложность равна O(n^2)
-     */
-    private static void sortArray()
+    private static void shuttleSort( )
     {
-        for(int i=0; i< list.length - 1; i++)
+        for (int i = 1; i < list.length; i++)
         {
-            for (int j = 1; j < list.length; j++) {
-                if (list[j] < list[j - 1]) {
-                    swap(list, j, j-1);
+            if (list[i] < list[i - 1])
+            {
+                swap(list, i, i - 1);
+
+                for (int z = i - 1; (z - 1) >= 0; z--)
+                {
+                    if (list[z] < list[z - 1])
+                    {
+                        swap(list, z, z - 1);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
             }
         }
     }
 
-    private static void swap(int[] array, int ind1, int ind2) {
-        int tmp = array[ind1];
-        array[ind1] = array[ind2];
-        array[ind2] = tmp;
-    }
 
     private static void print( )
     {
@@ -62,7 +61,8 @@ public class BubbleSort
         }
     }
 
-    private static void fill(int size)
+
+    private static void fill( int size )
     {
         list = new int[size];
 
@@ -70,5 +70,12 @@ public class BubbleSort
         {
             list[i] = (int) (Math.random() * 1000);
         }
+    }
+
+
+    private static void swap(int[] array, int ind1, int ind2) {
+        int tmp = array[ind1];
+        array[ind1] = array[ind2];
+        array[ind2] = tmp;
     }
 }
